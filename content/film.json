@@ -1,19 +1,22 @@
 {
   "items": [
     {
+      "title": "باشا - من فيلم جوازة ولا جنازة",
+      "image": "/uploads/3000-3000-f.webp",
+      "video_url": "https://www.youtube.com/watch?v=ZJmEdgjvhrA&list=RDZJmEdgjvhrA&start_radio=1",
+      "video_file": "",
+      "date": "2026",
+      "featured": true,
+      "hidden": false
+    },
+    {
       "title": "صقر وكناريا",
       "image": "uploads/sakr-w-canaria.webp",
-      "featured": true
-    },
-    {
-      "title": "الممر الأخير",
-      "image": "",
-      "date": "EID 2026"
-    },
-    {
-      "title": "THE HEIST",
-      "image": "",
-      "date": "COMING SOON"
+      "video_url": "",
+      "video_file": "",
+      "date": "",
+      "featured": true,
+      "hidden": false
     }
   ]
 }
