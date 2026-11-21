@@ -19,7 +19,7 @@ media_libraries:
           width: 2400
           height: 2400
 
-site_url: https://hegazy9510.github.io/sync-agency/
+site_url: https://sync-agency.vercel.app/
 logo_url: ../logo.webp
 
 collections:
