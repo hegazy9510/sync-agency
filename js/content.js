@@ -41,4 +41,4 @@ let SERVICES=[["بوسترات الأفلام","Movie Posters","بوستر رئ�
  ["الهوية البصرية","Brand Identity","لوجوهات وهويات للفنانين والبراندات.","Logos and identities for artists and brands."]];
 let CLIENTS=["Client 01","Client 02","Client 03","Client 04","Client 05","Client 06","Client 07","Client 08"]; // أو "clients/logo.png"
 let EMAIL="hello@syncagency.com";
-let LINKS=[["Instagram","@hegazy_official","https://www.instagram.com/hegazy_official/"],["Instagram","@syncagency.eg","https://www.instagram.com/syncagency.eg/"],["Facebook","SYNC AGENCY","https://www.facebook.com/share/1A2QthfQhd/"],["Behance","Portfolio","#"],["WhatsApp","Chat","#"]];
+let LINKS=[["Instagram","@hegazy_official","https://www.instagram.com/hegazy_official/"],["Instagram","@syncagency.eg","https://www.instagram.com/syncagency.eg/"],["Facebook","@hegazyds10","https://www.facebook.com/hegazyds10"],["Behance","Portfolio","#"],["WhatsApp","Chat","#"]];
