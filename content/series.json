@@ -1,6 +1,15 @@
 {
   "items": [
     {
+      "title": "عين سحرية",
+      "image": "/uploads/post.webp",
+      "video_url": "https://www.youtube.com/watch?v=Xj0-73cK3ow",
+      "video_file": "",
+      "date": "",
+      "featured": true,
+      "hidden": false
+    },
+    {
       "title": "تستنوا ايه",
       "image": "/uploads/3000-3000-8.webp",
       "video_url": "https://www.youtube.com/watch?v=zCCFq6GLdoQ",
