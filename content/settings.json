@@ -85,10 +85,91 @@
       "label_en": "AI pioneer"
     }
   ],
+  "services": [
+    {
+      "title_ar": "بوسترات الأفلام",
+      "title_en": "Movie Posters",
+      "desc_ar": "بوستر رئيسي، تيزر، وبوسترات الشخصيات.",
+      "desc_en": "Key art, teasers and character posters."
+    },
+    {
+      "title_ar": "حملات المسلسلات",
+      "title_en": "Series Campaigns",
+      "desc_ar": "حملات رمضان والمنصات من الألف للياء.",
+      "desc_en": "Ramadan & streaming campaigns, end to end."
+    },
+    {
+      "title_ar": "الأغاني والكليبات",
+      "title_en": "Music & Clips",
+      "desc_ar": "أغلفة أغاني وألبومات وإخراج فني للكليبات.",
+      "desc_en": "Covers, album art and video clip direction."
+    },
+    {
+      "title_ar": "السوشيال ميديا",
+      "title_en": "Social Media",
+      "desc_ar": "حملات إطلاق وموشن ومحتوى يوقف السكرول.",
+      "desc_en": "Launch campaigns, motion and scroll-stopping content."
+    },
+    {
+      "title_ar": "الذكاء الاصطناعي",
+      "title_en": "AI Production",
+      "desc_ar": "صور وأفلام بالذكاء الاصطناعي بجودة سينمائية.",
+      "desc_en": "Cinematic AI visuals, films and hybrid pipelines."
+    },
+    {
+      "title_ar": "الهوية البصرية",
+      "title_en": "Brand Identity",
+      "desc_ar": "لوجوهات وهويات للفنانين والبراندات.",
+      "desc_en": "Logos and identities for artists and brands."
+    }
+  ],
+  "categories": {
+    "film": {
+      "ar": "أفلام",
+      "en": "Films"
+    },
+    "series": {
+      "ar": "مسلسلات",
+      "en": "Series"
+    },
+    "music": {
+      "ar": "أغاني",
+      "en": "Music"
+    },
+    "video": {
+      "ar": "كليبات",
+      "en": "Videos"
+    },
+    "social": {
+      "ar": "سوشيال",
+      "en": "Social"
+    },
+    "ai": {
+      "ar": "ذكاء اصطناعي",
+      "en": "AI"
+    }
+  },
+  "tags": [
+    "Art Direction",
+    "Key Art",
+    "Motion",
+    "Branding",
+    "Social Media",
+    "Generative AI",
+    "Adobe 2020"
+  ],
+  "marquee": [
+    "SYNC AGENCY",
+    "Art Direction",
+    "Film",
+    "Music",
+    "Social",
+    "AI"
+  ],
   "clients": [
     {
-      "name": "Client 01",
-      "logo": ""
+      "name": "CraftMedia",
+      "logo": "/uploads/logo.webp"
     },
     {
       "name": "Client 02",
@@ -145,86 +226,5 @@
       "label": "Chat",
       "url": "#"
     }
-  ],
-  "services": [
-    {
-      "title_ar": "بوسترات الأفلام",
-      "title_en": "Movie Posters",
-      "desc_ar": "بوستر رئيسي، تيزر، وبوسترات الشخصيات.",
-      "desc_en": "Key art, teasers and character posters."
-    },
-    {
-      "title_ar": "حملات المسلسلات",
-      "title_en": "Series Campaigns",
-      "desc_ar": "حملات رمضان والمنصات من الألف للياء.",
-      "desc_en": "Ramadan & streaming campaigns, end to end."
-    },
-    {
-      "title_ar": "الأغاني والكليبات",
-      "title_en": "Music & Clips",
-      "desc_ar": "أغلفة أغاني وألبومات وإخراج فني للكليبات.",
-      "desc_en": "Covers, album art and video clip direction."
-    },
-    {
-      "title_ar": "السوشيال ميديا",
-      "title_en": "Social Media",
-      "desc_ar": "حملات إطلاق وموشن ومحتوى يوقف السكرول.",
-      "desc_en": "Launch campaigns, motion and scroll-stopping content."
-    },
-    {
-      "title_ar": "الذكاء الاصطناعي",
-      "title_en": "AI Production",
-      "desc_ar": "صور وأفلام بالذكاء الاصطناعي بجودة سينمائية.",
-      "desc_en": "Cinematic AI visuals, films and hybrid pipelines."
-    },
-    {
-      "title_ar": "الهوية البصرية",
-      "title_en": "Brand Identity",
-      "desc_ar": "لوجوهات وهويات للفنانين والبراندات.",
-      "desc_en": "Logos and identities for artists and brands."
-    }
-  ],
-  "tags": [
-    "Art Direction",
-    "Key Art",
-    "Motion",
-    "Branding",
-    "Social Media",
-    "Generative AI",
-    "Adobe 2020"
-  ],
-  "marquee": [
-    "SYNC AGENCY",
-    "Art Direction",
-    "Film",
-    "Music",
-    "Social",
-    "AI"
-  ],
-  "categories": {
-    "film": {
-      "ar": "أفلام",
-      "en": "Films"
-    },
-    "series": {
-      "ar": "مسلسلات",
-      "en": "Series"
-    },
-    "music": {
-      "ar": "أغاني",
-      "en": "Music"
-    },
-    "video": {
-      "ar": "كليبات",
-      "en": "Videos"
-    },
-    "social": {
-      "ar": "سوشيال",
-      "en": "Social"
-    },
-    "ai": {
-      "ar": "ذكاء اصطناعي",
-      "en": "AI"
-    }
-  }
+  ]
 }
