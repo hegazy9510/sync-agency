@@ -1,11 +1,11 @@
 {
   "items": [
     {
-      "title": "عيب عيب",
-      "image": "/uploads/ds.webp",
-      "video_url": "https://www.youtube.com/watch?v=pOkLRWUtNBg&list=RDpOkLRWUtNBg&start_radio=1",
+      "title": "هزهزه",
+      "image": "/uploads/3000-3000-10.webp",
+      "video_url": "https://www.youtube.com/watch?v=NjsE2PHeI6I&list=RDNjsE2PHeI6I&start_radio=1",
       "video_file": "",
-      "date": "",
+      "date": "2023",
       "featured": false,
       "hidden": false
     },
@@ -16,6 +16,15 @@
       "video_file": "",
       "date": "",
       "featured": true,
+      "hidden": false
+    },
+    {
+      "title": "عيب عيب",
+      "image": "/uploads/ds.webp",
+      "video_url": "https://www.youtube.com/watch?v=pOkLRWUtNBg&list=RDpOkLRWUtNBg&start_radio=1",
+      "video_file": "",
+      "date": "",
+      "featured": false,
       "hidden": false
     }
   ]
