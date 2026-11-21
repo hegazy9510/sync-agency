@@ -136,14 +136,20 @@ const Viewer = (() => {
 
   function fill(i, dir){
     cur = i; const w = WORKS[i], k = list.indexOf(i), isV = w.cat === "video";
+    // poster + video side by side when a work has both; video alone when it has no image
+    const player = u => { const y = ytId(u); return y
+      ? `<iframe src="https://www.youtube-nocookie.com/embed/${y}?rel=0&playsinline=1&modestbranding=1" title="${w.title}" allow="autoplay;encrypted-media;fullscreen;picture-in-picture" allowfullscreen></iframe>`
+      : `<video src="${u}" controls playsinline preload="metadata"></video>` };
+    const dual = !!(w.video && w.img), onlyVideo = !!(w.video && !w.img);
     let h;
-    if (w.video){ const y = ytId(w.video);
-      h = y ? `<iframe src="https://www.youtube.com/embed/${y}?autoplay=1&rel=0" allow="autoplay;fullscreen" allowfullscreen></iframe>` : `<video src="${w.video}" controls autoplay playsinline></video>` }
-    else { h = media(w, i, true); if (isV) h += `<div class="note">${t("demo")}</div>` }
-    vm.className = "vmed" + (isV ? " wide" : ""); vm.style.aspectRatio = ""; vm.style.width = "";
+    if (onlyVideo) h = player(w.video);
+    else { h = media(w, i, true); if (isV && !w.video) h += `<div class="note">${t("demo")}</div>` }
+    vw.classList.toggle("dual", dual);
+    $("#vvid").innerHTML = dual ? player(w.video) : "";
+    vm.className = "vmed" + (onlyVideo || (isV && !w.img) ? " wide" : ""); vm.style.aspectRatio = ""; vm.style.width = "";
     vm.innerHTML = h + '<div class="gl2"></div>';
-    const im = !isV && vm.querySelector("img");
-    if (im){ const fit = () => { const r = im.naturalWidth / im.naturalHeight; if (r){ vm.style.aspectRatio = r; vm.style.width = `min(100%, calc(${innerWidth < 1100 ? 52 : 70}vh * ${r}))` } }; im.complete ? fit() : im.onload = fit }
+    const im = !onlyVideo && vm.querySelector("img");
+    if (im){ const fit = () => { const r = im.naturalWidth / im.naturalHeight; if (r){ vm.style.aspectRatio = r; vm.style.width = dual ? (innerWidth < 1100 ? `min(100%, calc(30vh * ${r}))` : `min(40%, calc(66vh * ${r}))`) : `min(100%, calc(${innerWidth < 1100 ? 52 : 70}vh * ${r}))` } }; im.complete ? fit() : im.onload = fit }
     if (dir){ void vm.offsetWidth; vm.classList.add(dir > 0 ? "wipe" : "wipeb") }
     $("#vbg").innerHTML = w.img ? `<img src="${w.img}" alt="">` : art(w, i);
     $("#vnum").innerHTML = String(k+1).padStart(2,"0") + `<small>/ ${String(list.length).padStart(2,"0")}</small>`;
@@ -170,7 +176,7 @@ const Viewer = (() => {
   }
   function close(){
     vw.classList.remove("on"); document.body.style.overflow = ""; lenis?.start();
-    setTimeout(() => { if (!vw.classList.contains("on")){ vm.innerHTML = ""; $("#vbg").innerHTML = "" } }, 900);
+    setTimeout(() => { if (!vw.classList.contains("on")){ vm.innerHTML = ""; $("#vbg").innerHTML = ""; $("#vvid").innerHTML = "" } }, 900);
   }
   const step = d => { const k = list.indexOf(cur); fill(list[(k + d + list.length) % list.length], d) };
 
