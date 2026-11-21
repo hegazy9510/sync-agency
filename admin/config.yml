@@ -148,25 +148,76 @@ collections:
     editor: { preview: false }
     files:
       - name: settings
-        label: "الكلام والتواصل والعملاء"
+        label: "كل إعدادات الموقع"
         file: content/settings.json
         fields:
+          - { name: site_title, label: "عنوان الموقع (في تاب المتصفح وجوجل)", widget: string }
+          - { name: logo, label: "اللوجو (سيبه فاضي = اللوجو الحالي)", widget: image, required: false }
+          - { name: accent, label: "اللون الأساسي", widget: color, required: false }
+          - { name: background, label: "لون الخلفية", widget: color, required: false }
           - { name: email, label: "الإيميل", widget: string }
           - { name: portrait, label: "صورتك الشخصية", widget: image, required: false }
           - name: text_ar
-            label: "الكلام بالعربي"
+            label: "📝 كل الكلام بالعربي"
             widget: object
+            collapsed: true
+            hint: "تقدر تستخدم <span>كلمة</span> عشان تتلون باللون الأساسي"
             fields:
-              - { name: hero, label: "وصف الصفحة الرئيسية", widget: text }
-              - { name: hook, label: "الجملة الكبيرة في (عنّي)", widget: text }
-              - { name: about, label: "التعريف (افصل الفقرات بسطر فاضي)", widget: text }
+              - { name: hero, label: "وصف الصفحة الرئيسية", widget: text, required: false }
+              - { name: nWork, label: "قائمة: الأعمال", widget: string, required: false }
+              - { name: nAbout, label: "قائمة: عنّي", widget: string, required: false }
+              - { name: nSvc, label: "قائمة: الخدمات", widget: string, required: false }
+              - { name: nCl, label: "قائمة: العملاء", widget: string, required: false }
+              - { name: nCt, label: "زرار التواصل اللي فوق", widget: string, required: false }
+              - { name: b1, label: "زرار 1 في الرئيسية", widget: string, required: false }
+              - { name: b2, label: "زرار 2 في الرئيسية", widget: string, required: false }
+              - { name: drag, label: "جملة السحب تحت", widget: string, required: false }
+              - { name: wEy, label: "عنوان صغير: الأعمال", widget: string, required: false }
+              - { name: wH, label: "عنوان كبير: الأعمال", widget: string, required: false }
+              - { name: aEy, label: "عنوان صغير: عنّي", widget: string, required: false }
+              - { name: aName, label: "اسمك", widget: string, required: false }
+              - { name: sEy, label: "عنوان صغير: الخدمات", widget: string, required: false }
+              - { name: sH, label: "عنوان كبير: الخدمات", widget: string, required: false }
+              - { name: cEy, label: "عنوان صغير: العملاء", widget: string, required: false }
+              - { name: cH, label: "عنوان كبير: العملاء", widget: string, required: false }
+              - { name: ctEy, label: "عنوان صغير: التواصل", widget: string, required: false }
+              - { name: ctH, label: "عنوان كبير: التواصل", widget: string, required: false }
+              - { name: ctP, label: "جملة التواصل", widget: text, required: false }
+              - { name: ctB, label: "زرار الإيميل", widget: string, required: false }
+              - { name: foot, label: "الفوتر", widget: string, required: false }
+              - { name: all, label: "فلتر: الكل", widget: string, required: false }
+              - { name: hook, label: "الجملة الكبيرة في (عنّي)", widget: text, required: false }
+              - { name: about, label: "التعريف (افصل الفقرات بسطر فاضي)", widget: text, required: false }
           - name: text_en
-            label: "English text"
+            label: "📝 All English text"
             widget: object
+            collapsed: true
             fields:
-              - { name: hero, label: "Hero description", widget: text }
-              - { name: hook, label: "About headline", widget: text }
-              - { name: about, label: "About (blank line between paragraphs)", widget: text }
+              - { name: hero, label: "hero", widget: text, required: false }
+              - { name: nWork, label: "nWork", widget: string, required: false }
+              - { name: nAbout, label: "nAbout", widget: string, required: false }
+              - { name: nSvc, label: "nSvc", widget: string, required: false }
+              - { name: nCl, label: "nCl", widget: string, required: false }
+              - { name: nCt, label: "nCt", widget: string, required: false }
+              - { name: b1, label: "b1", widget: string, required: false }
+              - { name: b2, label: "b2", widget: string, required: false }
+              - { name: drag, label: "drag", widget: string, required: false }
+              - { name: wEy, label: "wEy", widget: string, required: false }
+              - { name: wH, label: "wH", widget: string, required: false }
+              - { name: aEy, label: "aEy", widget: string, required: false }
+              - { name: aName, label: "aName", widget: string, required: false }
+              - { name: sEy, label: "sEy", widget: string, required: false }
+              - { name: sH, label: "sH", widget: string, required: false }
+              - { name: cEy, label: "cEy", widget: string, required: false }
+              - { name: cH, label: "cH", widget: string, required: false }
+              - { name: ctEy, label: "ctEy", widget: string, required: false }
+              - { name: ctH, label: "ctH", widget: string, required: false }
+              - { name: ctP, label: "ctP", widget: text, required: false }
+              - { name: ctB, label: "ctB", widget: string, required: false }
+              - { name: foot, label: "foot", widget: string, required: false }
+              - { name: all, label: "all", widget: string, required: false }
+              - { name: hook, label: "hook", widget: text, required: false }
+              - { name: about, label: "about", widget: text, required: false }
           - name: stats
             label: "الأرقام"
             widget: list
@@ -176,6 +227,28 @@ collections:
               - { name: suffix, label: "بعد الرقم (+ أو st)", widget: string, required: false }
               - { name: label_ar, label: "الوصف بالعربي", widget: string }
               - { name: label_en, label: "English label", widget: string }
+          - name: services
+            label: "الخدمات"
+            widget: list
+            summary: "{{fields.title_ar}}"
+            fields:
+              - { name: title_ar, label: "اسم الخدمة بالعربي", widget: string }
+              - { name: title_en, label: "Service name", widget: string }
+              - { name: desc_ar, label: "الوصف بالعربي", widget: text, required: false }
+              - { name: desc_en, label: "Description", widget: text, required: false }
+          - name: categories
+            label: "أسماء أقسام الأعمال"
+            widget: object
+            collapsed: true
+            fields:
+              - { name: film, label: "أفلام", widget: object, fields: [{ name: ar, label: "عربي", widget: string }, { name: en, label: "English", widget: string }] }
+              - { name: series, label: "مسلسلات", widget: object, fields: [{ name: ar, label: "عربي", widget: string }, { name: en, label: "English", widget: string }] }
+              - { name: music, label: "أغاني", widget: object, fields: [{ name: ar, label: "عربي", widget: string }, { name: en, label: "English", widget: string }] }
+              - { name: video, label: "كليبات", widget: object, fields: [{ name: ar, label: "عربي", widget: string }, { name: en, label: "English", widget: string }] }
+              - { name: social, label: "سوشيال", widget: object, fields: [{ name: ar, label: "عربي", widget: string }, { name: en, label: "English", widget: string }] }
+              - { name: ai, label: "ذكاء اصطناعي", widget: object, fields: [{ name: ar, label: "عربي", widget: string }, { name: en, label: "English", widget: string }] }
+          - { name: tags, label: "الكلمات تحت التعريف", widget: list, required: false }
+          - { name: marquee, label: "كلمات الشريط المتحرك", widget: list, required: false }
           - name: clients
             label: "العملاء"
             widget: list

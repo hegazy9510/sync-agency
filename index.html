@@ -500,7 +500,7 @@ const TXT={
 };
 const CATS={film:["أفلام","Films"],series:["مسلسلات","Series"],music:["أغاني","Music"],video:["كليبات","Videos"],social:["سوشيال","Social"],ai:["ذكاء اصطناعي","AI"]};
 let STATS=[["14","+","سنة خبرة","Years"],["500","+","مشروع","Projects"],["120","+","شركة وبراند","Brands"],["1","st","أول واحد بالـ AI","AI pioneer"]];
-const TAGS=["Art Direction","Key Art","Motion","Branding","Social Media","Generative AI","Adobe 2020"];
+let TAGS=["Art Direction","Key Art","Motion","Branding","Social Media","Generative AI","Adobe 2020"];
 let PORTRAIT=""; // صورتك: "me.jpg"
 
 let WORKS=[ // cat: film | series | music | video | social | ai
@@ -518,7 +518,7 @@ let WORKS=[ // cat: film | series | music | video | social | ai
  {cat:"music", title:"حبيبي",          img:"",c1:"#2bd48a",c2:"#00281a"},
  {cat:"ai",    title:"DUNES",         img:""}
 ];
-const SERVICES=[["بوسترات الأفلام","Movie Posters","بوستر رئيسي، تيزر، وبوسترات الشخصيات.","Key art, teasers and character posters."],
+let SERVICES=[["بوسترات الأفلام","Movie Posters","بوستر رئيسي، تيزر، وبوسترات الشخصيات.","Key art, teasers and character posters."],
  ["حملات المسلسلات","Series Campaigns","حملات رمضان والمنصات من الألف للياء.","Ramadan & streaming campaigns, end to end."],
  ["الأغاني والكليبات","Music & Clips","أغلفة أغاني وألبومات وإخراج فني للكليبات.","Covers, album art and video clip direction."],
  ["السوشيال ميديا","Social Media","حملات إطلاق وموشن ومحتوى يوقف السكرول.","Launch campaigns, motion and scroll-stopping content."],
@@ -540,7 +540,17 @@ function getJSON(u){try{const x=new XMLHttpRequest();x.open("GET",u+"?v="+Date.n
  if(s.links&&s.links.length)LINKS=s.links.map(l=>[l.name,l.label||"",l.url]);
  if(s.clients&&s.clients.length)CLIENTS=s.clients.map(c=>c.logo||c.name);
  if(s.stats&&s.stats.length)STATS=s.stats.map(x=>[String(x.number),x.suffix||"",x.label_ar||"",x.label_en||""]);
- ["ar","en"].forEach(l=>{const t=s["text_"+l];if(!t)return;if(t.hero)TXT[l].hSub=t.hero;if(t.hook)TXT[l].aHook=t.hook;if(t.about)TXT[l].about=t.about.split(/\n\s*\n/)});
+ const AL={hero:"hSub",hook:"aHook"};
+ ["ar","en"].forEach(l=>{const t=s["text_"+l];if(!t)return;for(const k in t){if(t[k]==null||t[k]==="")continue;if(k=="about")TXT[l].about=String(t[k]).split(/\n\s*\n/);else TXT[l][AL[k]||k]=t[k]}});
+ if(s.services&&s.services.length)SERVICES=s.services.map(x=>[x.title_ar,x.title_en,x.desc_ar||"",x.desc_en||""]);
+ if(s.tags&&s.tags.length)TAGS=s.tags;
+ if(s.marquee&&s.marquee.length)window.MQW=s.marquee;
+ if(s.categories)for(const c in s.categories){const v=s.categories[c];if(CATS[c]&&v)CATS[c]=[v.ar||CATS[c][0],v.en||CATS[c][1]]}
+ const R=document.documentElement.style;
+ if(s.accent)R.setProperty("--ac",s.accent);
+ if(s.background)R.setProperty("--bg",s.background);
+ if(s.logo)R.setProperty("--logo",'url("'+s.logo+'")');
+ if(s.site_title)document.title=s.site_title;
 })();
 let LIM=12;const PAL=[["#ff2d55","#2a0010"],["#7b5cff","#140a3a"],["#00d4ff","#001a2a"],["#ffb800","#3a1500"],["#2bd48a","#00281a"],["#ff6a00","#3a0a00"]];
 
@@ -649,7 +659,7 @@ function split(el){const out=[];let i=0;
 function floats(){$$(".fl").forEach(f=>f.innerHTML=art(WORKS[+f.dataset.k],+f.dataset.k))}
 
 /* marquee */
-const MQ=["SYNC AGENCY","✦","Art Direction","✦","Film","✦","Music","✦","Social","✦","AI","✦"];
+const MQ=(window.MQW&&MQW.length?MQW:["SYNC AGENCY","Art Direction","Film","Music","Social","AI"]).flatMap(w=>[w,"✦"]);
 $("#mqt").innerHTML=[...MQ,...MQ,...MQ].map(t=>`<span class="${t=='✦'?'st':''}">${t}</span>`).join("");
 
 /* observe reveals */
