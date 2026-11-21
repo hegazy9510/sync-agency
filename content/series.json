@@ -1,6 +1,15 @@
 {
   "items": [
     {
+      "title": "سوا سوا",
+      "image": "/uploads/post-2.webp",
+      "video_url": "https://www.youtube.com/watch?v=rRzvYOvfCp0",
+      "video_file": "",
+      "date": "",
+      "featured": true,
+      "hidden": false
+    },
+    {
       "title": "علي قد الحب",
       "image": "/uploads/post-1.webp",
       "video_url": "https://www.youtube.com/watch?v=zRgNKwE4DtA",
