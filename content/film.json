@@ -1,7 +1,19 @@
 {
   "items": [
-    { "title": "صقر وكناريا", "image": "uploads/sakr-w-canaria.jpg", "featured": true },
-    { "title": "الممر الأخير", "image": "", "date": "EID 2026" },
-    { "title": "THE HEIST", "image": "", "date": "COMING SOON" }
+    {
+      "title": "صقر وكناريا",
+      "image": "uploads/sakr-w-canaria.webp",
+      "featured": true
+    },
+    {
+      "title": "الممر الأخير",
+      "image": "",
+      "date": "EID 2026"
+    },
+    {
+      "title": "THE HEIST",
+      "image": "",
+      "date": "COMING SOON"
+    }
   ]
 }
