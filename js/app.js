@@ -127,69 +127,91 @@ function initPortfolio(){
   $("#more").addEventListener("click", () => { LIM += 12; applyFilter() });
 }
 
-/* ---------- 6. Viewer (cinematic lightbox) ---------- */
+/* ---------- 6. Viewer — "Now Showing" cinema ---------- */
 const Viewer = (() => {
-  let cur = 0, list = [];
-  const vw = $("#vw"), vm = $("#vmed");
+  let cur = 0, list = [], ratio = .8, busy = false;
+  const vw = $("#vw"), vm = $("#vmed"), vv = $("#vvid");
   const visible = () => $$("#grid .it:not(.hide)").map(e => +e.dataset.i);
   const ytId = u => (u.match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([\w-]{11})/) || [])[1];
+  const pad = n => String(n).padStart(2, "0");
 
-  function fill(i, dir){
-    cur = i; const w = WORKS[i], k = list.indexOf(i), isV = w.cat === "video";
-    // poster + video side by side when a work has both; video alone when it has no image
-    const player = u => { const y = ytId(u); return y
-      ? `<iframe src="https://www.youtube-nocookie.com/embed/${y}?rel=0&playsinline=1&modestbranding=1" title="${w.title}" allow="autoplay;encrypted-media;fullscreen;picture-in-picture" allowfullscreen></iframe>`
-      : `<video src="${u}" controls playsinline preload="metadata"></video>` };
-    const dual = !!(w.video && w.img), onlyVideo = !!(w.video && !w.img);
-    let h;
-    if (onlyVideo) h = player(w.video);
-    else { h = media(w, i, true); if (isV && !w.video) h += `<div class="note">${t("demo")}</div>` }
+  /* size poster + screen so both always fit the space between the letterbox bars */
+  function size(){
+    const mob = innerWidth <= 900, dual = vw.classList.contains("dual"), wide = vm.classList.contains("wide");
+    const W = innerWidth - (mob ? 32 : 96), H = innerHeight - (mob ? 56 + 92 : 64 + 104) - (mob ? 150 : 150);
+    const r = wide ? 16/9 : ratio, gap = Math.min(48, Math.max(20, innerWidth*.03));
+    let ph;
+    if (mob) ph = dual ? Math.min(H*.52, W/r) : Math.min(H*.85, W/r);
+    else ph = dual ? Math.min(H, (W - gap)/(r + 16/9)) : Math.min(H, W/r);
+    vw.style.setProperty("--ph", Math.max(160, ph) + "px");
+    vm.style.setProperty("--pr", r);
+  }
+  /* average colour of the poster → ambient light around the screen */
+  function ambient(img){
+    try { const c = document.createElement("canvas"), x = c.getContext("2d", { willReadFrequently: true }); c.width = c.height = 12;
+      x.drawImage(img, 0, 0, 12, 12); const d = x.getImageData(0, 0, 12, 12).data; let r = 0, g = 0, b = 0;
+      for (let k = 0; k < d.length; k += 4){ r += d[k]; g += d[k+1]; b += d[k+2] }
+      const n = d.length/4, boost = v => Math.min(255, Math.round(v/n*1.35));
+      vw.style.setProperty("--amb", `${boost(r)},${boost(g)},${boost(b)}`) } catch (e) {}
+  }
+  function player(w){ const y = ytId(w.video);
+    return y ? `<iframe src="https://www.youtube-nocookie.com/embed/${y}?rel=0&playsinline=1&modestbranding=1" title="${w.title}" allow="autoplay;encrypted-media;fullscreen;picture-in-picture" allowfullscreen></iframe>`
+             : `<video src="${w.video}" controls playsinline preload="metadata"></video>` }
+
+  function fill(i){
+    cur = i; const w = WORKS[i], k = list.indexOf(i);
+    const dual = !!(w.video && w.img), onlyVideo = !!(w.video && !w.img), demoVideo = w.cat === "video" && !w.video && !w.img;
     vw.classList.toggle("dual", dual);
-    $("#vvid").innerHTML = dual ? player(w.video) : "";
-    vm.className = "vmed" + (onlyVideo || (isV && !w.img) ? " wide" : ""); vm.style.aspectRatio = ""; vm.style.width = "";
-    vm.innerHTML = h + '<div class="gl2"></div>';
-    const im = !onlyVideo && vm.querySelector("img");
-    if (im){ const fit = () => { const r = im.naturalWidth / im.naturalHeight; if (r){ vm.style.aspectRatio = r; vm.style.width = dual ? (innerWidth < 1100 ? `min(100%, calc(30vh * ${r}))` : `min(40%, calc(66vh * ${r}))`) : `min(100%, calc(${innerWidth < 1100 ? 52 : 70}vh * ${r}))` } }; im.complete ? fit() : im.onload = fit }
-    if (dir){ void vm.offsetWidth; vm.classList.add(dir > 0 ? "wipe" : "wipeb") }
+    vm.className = "vmed" + (onlyVideo ? " wide" : "");
+    vm.innerHTML = (onlyVideo ? player(w) : media(w, i, true) + (demoVideo ? `<div class="note">${t("demo")}</div>` : "")) + '<div class="gl2"></div>';
+    vv.innerHTML = dual ? player(w) : "";
+    ratio = .8; vw.style.setProperty("--amb", PAL[i % PAL.length][0].match(/\w\w/g).map(h => parseInt(h, 16)).join(","));
+    const im = vm.querySelector("img");
+    if (im){ const done = () => { if (im.naturalWidth){ ratio = im.naturalWidth/im.naturalHeight; size(); ambient(im) } }; im.complete ? done() : im.onload = done }
+    size();
+
     $("#vbg").innerHTML = w.img ? `<img src="${w.img}" alt="">` : art(w, i);
-    $("#vnum").innerHTML = String(k+1).padStart(2,"0") + `<small>/ ${String(list.length).padStart(2,"0")}</small>`;
+    $("#vmq").textContent = Array(8).fill(w.title + "  ✦  ").join("");
+    $("#vnum").innerHTML = `${L === "ar" ? "مشهد" : "SCENE"} <b>${pad(k+1)}</b> / ${pad(list.length)}`;
     $("#vc").textContent = cat(w.cat);
     const vt = $("#vt"); vt.textContent = w.title; vt.dir = isAr(w.title) ? "rtl" : "ltr";
     $("#vd").textContent = "SYNC AGENCY — Art Direction";
-    $("#vinfo").style.setProperty("--dr", L === "ar" ? "rtl" : "ltr");
-    $("#vbar").style.width = ((k+1) / list.length * 100) + "%";
     split(vt); vt.classList.remove("on"); requestAnimationFrame(() => requestAnimationFrame(() => vt.classList.add("on")));
     $$("#vth button").forEach(b => b.classList.toggle("on", +b.dataset.i === i));
     const ab = $(`#vth button[data-i="${i}"]`), th = $("#vth");
     if (ab) th.scrollTo({ left: ab.offsetLeft - th.clientWidth/2 + ab.offsetWidth/2, behavior: "smooth" });
   }
+  /* shutter cut, then swap the work */
+  function go(i){
+    if (busy || i === cur) return; busy = true;
+    vw.classList.remove("cut"); void vw.offsetWidth; vw.classList.add("cut");
+    setTimeout(() => fill(i), 270);
+    setTimeout(() => { vw.classList.remove("cut"); busy = false }, 640);
+  }
   function open(i, src){
     list = visible(); if (!list.includes(i)) list.unshift(i);
     $("#vth").innerHTML = list.map(j => `<button data-i="${j}" aria-label="${WORKS[j].title}">${media(WORKS[j], j)}</button>`).join("");
-    const fr = src || $(`#grid .it[data-i="${i}"] .fr`), r = fr?.getBoundingClientRect();
+    const r = (src || $(`#grid .it[data-i="${i}"] .fr`))?.getBoundingClientRect();
     if (r){ vw.style.setProperty("--ox", r.left + r.width/2 + "px"); vw.style.setProperty("--oy", r.top + r.height/2 + "px") }
-    fill(i); vw.classList.add("on"); document.body.style.overflow = "hidden"; lenis?.stop();
-    if (r && r.bottom > 0 && r.top < innerHeight){ // fly from the clicked card
-      const tr = vm.getBoundingClientRect(); vm.style.transition = "none";
-      vm.style.transform = `translate(${r.left + r.width/2 - (tr.left + tr.width/2)}px,${r.top + r.height/2 - (tr.top + tr.height/2)}px) scale(${r.width/tr.width},${r.height/tr.height})`;
-      void vm.offsetWidth; vm.style.transition = "transform 1s cubic-bezier(.7,0,.2,1)"; vm.style.transform = "" }
+    cur = -1; fill(i); vw.classList.add("on"); document.body.style.overflow = "hidden"; lenis?.stop();
   }
   function close(){
-    vw.classList.remove("on"); document.body.style.overflow = ""; lenis?.start();
-    setTimeout(() => { if (!vw.classList.contains("on")){ vm.innerHTML = ""; $("#vbg").innerHTML = ""; $("#vvid").innerHTML = "" } }, 900);
+    vw.classList.remove("on", "cut"); document.body.style.overflow = ""; lenis?.start();
+    setTimeout(() => { if (!vw.classList.contains("on")){ vm.innerHTML = ""; vv.innerHTML = ""; $("#vbg").innerHTML = "" } }, 900);
   }
-  const step = d => { const k = list.indexOf(cur); fill(list[(k + d + list.length) % list.length], d) };
+  const step = d => { const k = list.indexOf(cur); go(list[(k + d + list.length) % list.length]) };
 
   $("#vx").onclick = close; $("#vn").onclick = () => step(1); $("#vp").onclick = () => step(-1);
-  $("#vth").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; const j = +b.dataset.i; fill(j, list.indexOf(j) > list.indexOf(cur) ? 1 : -1) });
+  $("#vth").addEventListener("click", e => { const b = e.target.closest("button"); if (b) go(+b.dataset.i) });
   addEventListener("keydown", e => { if (!vw.classList.contains("on")) return;
     if (e.key === "Escape") close(); if (e.key === "ArrowRight") step(1); if (e.key === "ArrowLeft") step(-1) });
+  addEventListener("resize", () => vw.classList.contains("on") && size());
   if (FINE) vw.addEventListener("mousemove", e => { if (vm.classList.contains("wide")) return;
     const x = e.clientX/innerWidth - .5, y = e.clientY/innerHeight - .5;
-    vm.style.transform = `rotateY(${x*14}deg) rotateX(${-y*14}deg)`; vm.style.setProperty("--gx", (x+.5)*100 + "%"); vm.style.setProperty("--gy", (y+.5)*100 + "%") });
+    vm.style.transform = `rotateY(${x*12}deg) rotateX(${-y*10}deg)` });
   let tx = 0;
   vw.addEventListener("touchstart", e => tx = e.touches[0].clientX, { passive: true });
-  vw.addEventListener("touchend", e => { const d = e.changedTouches[0].clientX - tx; if (Math.abs(d) > 50) step(d < 0 ? 1 : -1) }, { passive: true });
+  vw.addEventListener("touchend", e => { if (e.target.closest(".vvid,.vth")) return; const d = e.changedTouches[0].clientX - tx; if (Math.abs(d) > 50) step(d < 0 ? 1 : -1) }, { passive: true });
   return { open };
 })();
 

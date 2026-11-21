@@ -1,0 +1,108 @@
+/* =====================================================================
+   SYNC AGENCY — "Now Showing" cinema viewer
+   letterbox bars · giant title marquee · poster with floor reflection
+   · video screen with ambient light · film-strip · shutter cut
+   ===================================================================== */
+.vw{position:fixed;inset:0;z-index:100;visibility:hidden;overflow:hidden;--amb:255,45,85;--ph:420px;direction:ltr;color:#fff}
+.vw.on{visibility:visible}
+
+/* backdrop: opens as a circle from the clicked card */
+.vw .bk{position:absolute;inset:0;background:#030304;clip-path:circle(0 at var(--ox,50%) var(--oy,50%));transition:clip-path .9s var(--e)}
+.vw.on .bk{clip-path:circle(150% at var(--ox,50%) var(--oy,50%))}
+.vbg{position:absolute;inset:-12%;filter:blur(70px) saturate(1.5) brightness(.35);opacity:0;transform:scale(1.15);transition:opacity 1.2s .2s}
+.vbg>*{position:absolute!important;inset:0;width:100%!important;height:100%!important;object-fit:cover}
+.vw.on .vbg{opacity:1}
+.vw .vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,transparent 25%,rgba(0,0,0,.85) 80%)}
+/* stage light coming from the top */
+.vw .vbeam{position:absolute;left:50%;top:0;width:min(1200px,120vw);height:90%;transform:translateX(-50%);pointer-events:none;opacity:0;transition:opacity 1.4s .5s;
+ background:conic-gradient(from 180deg at 50% 0%,transparent 160deg,rgba(var(--amb),.13) 172deg,rgba(255,255,255,.08) 180deg,rgba(var(--amb),.13) 188deg,transparent 200deg);mix-blend-mode:screen}
+.vw.on .vbeam{opacity:1}
+
+/* giant title moving behind everything */
+.vmarq{position:absolute;left:0;right:0;top:50%;transform:translateY(-58%);white-space:nowrap;pointer-events:none;opacity:0;transition:opacity 1s .6s}
+.vw.on .vmarq{opacity:1}
+.vmarq div{display:inline-block;animation:vmq 40s linear infinite;font:900 clamp(110px,19vw,300px)/1 Cairo,Syne,sans-serif;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.09);letter-spacing:-.02em}
+@keyframes vmq{to{transform:translateX(-50%)}}
+
+/* letterbox bars */
+.vbar{position:absolute;left:0;right:0;z-index:5;background:#000;display:flex;align-items:center;gap:18px;padding:0 24px;transition:transform .9s var(--e)}
+.vtop{top:0;height:64px;transform:translateY(-100%)}
+.vbot{bottom:0;height:104px;transform:translateY(100%)}
+.vw.on .vtop,.vw.on .vbot{transform:none}
+.vlive{display:flex;align-items:center;gap:10px;font:700 11px Inter,sans-serif;letter-spacing:.32em}
+.vlive i{width:8px;height:8px;border-radius:50%;background:var(--ac);box-shadow:0 0 12px var(--ac);animation:pls 1.4s infinite}
+.vscene{margin-left:auto;margin-right:auto;font:700 12px Inter,sans-serif;letter-spacing:.3em;color:#9a9aa2}
+.vscene b{color:#fff;font:800 22px Syne,sans-serif;letter-spacing:0;margin:0 6px;vertical-align:-3px}
+.vx{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.3);font-size:18px;color:#fff;transition:.3s}
+.vx:hover{background:#fff;color:#000;transform:rotate(90deg)}
+
+/* film strip */
+.vbot>button{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.3);color:#fff;font-size:18px;transition:.3s}
+.vbot>button:hover{background:#fff;color:#000}
+.vth{flex:1;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:14px 6px;position:relative;
+ background:#0b0b0d;border-radius:4px;
+ -webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.vth::-webkit-scrollbar{display:none}
+.vth button{flex:0 0 auto;width:52px;height:64px;position:relative;overflow:hidden;opacity:.35;transition:.4s var(--e);filter:grayscale(1);border-radius:2px}
+.vth button>*{position:absolute!important;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.vth button>.p .t,.vth button>.p .top,.vth button>.p .dt,.vth button>.p .tg,.vth button>.p .pill{display:none}
+.vth button.on{opacity:1;filter:none;outline:2px solid var(--ac);outline-offset:2px}
+.vth button:hover{opacity:1;filter:none}
+/* sprocket holes */
+.vth{background-image:radial-gradient(circle at 50% 50%,#2a2a2e 2.2px,transparent 2.6px),radial-gradient(circle at 50% 50%,#2a2a2e 2.2px,transparent 2.6px);
+ background-size:14px 8px,14px 8px;background-repeat:repeat-x;background-position:0 2px,0 calc(100% - 2px)}
+
+/* stage */
+.vin{position:absolute;top:64px;bottom:104px;left:0;right:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;padding:24px;z-index:2}
+.vstage{display:flex;align-items:flex-start;justify-content:center;gap:clamp(20px,3vw,48px);perspective:1400px}
+.vpost{position:relative;flex:0 0 auto;opacity:0;transform:translateX(-40px) rotateY(18deg);transition:1s .25s var(--e)}
+.vw.on .vpost{opacity:1;transform:none}
+.vmed{position:relative;height:var(--ph);aspect-ratio:var(--pr,4/5);border-radius:6px;overflow:hidden;background:#000;
+ box-shadow:0 50px 100px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.1);transition:transform .6s var(--e);
+ -webkit-box-reflect:below 10px linear-gradient(transparent 72%,rgba(255,255,255,.22))}
+.vmed>img,.vmed>video,.vmed>iframe,.vmed>.p{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0}
+.vmed .gl2{position:absolute;inset:0;z-index:6;pointer-events:none;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.18) 48%,transparent 60%);background-size:250% 100%;animation:glint 5s ease-in-out infinite}
+@keyframes glint{0%,60%{background-position:120% 0}100%{background-position:-60% 0}}
+
+/* the cinema screen */
+.vvid{display:none;position:relative;flex:0 0 auto;height:var(--ph);aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:#000;
+ box-shadow:0 0 0 1px rgba(255,255,255,.12),0 0 80px 10px rgba(var(--amb),.35),0 0 220px 40px rgba(var(--amb),.18);
+ opacity:0;transform:translateX(40px) scale(.96);transition:1s .45s var(--e)}
+.vw.on .vvid{opacity:1;transform:none}
+.vw.dual .vvid{display:block}
+.vvid iframe,.vvid video{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vvid .tag{position:absolute;left:12px;top:-30px;font:700 10px Inter,sans-serif;letter-spacing:.3em;color:#aaa}
+.vw.dual .vmed{-webkit-box-reflect:below 10px linear-gradient(transparent 72%,rgba(255,255,255,.18))}
+.vmed.wide{aspect-ratio:16/9}
+
+/* title block */
+.vinfo{text-align:center;max-width:900px;opacity:0;transform:translateY(20px);transition:.9s .6s var(--e)}
+.vw.on .vinfo{opacity:1;transform:none}
+.vinfo .vc{display:inline-block;font:700 10px Inter,sans-serif;letter-spacing:.35em;text-transform:uppercase;color:var(--ac);margin-bottom:8px}
+.vinfo h3{font:900 clamp(28px,3.6vw,56px)/1.1 Cairo,Syne,sans-serif;letter-spacing:-.01em;text-shadow:0 10px 40px rgba(0,0,0,.6)}
+.vinfo p{color:#8d8d94;font-size:13px;letter-spacing:.2em;margin-top:6px;text-transform:uppercase}
+.vw .w>i{transition-delay:calc(var(--i)*70ms + .15s)}
+
+/* shutter cut between works */
+.shut{position:absolute;inset:64px 0 104px;z-index:4;pointer-events:none}
+.shut i{position:absolute;left:0;right:0;height:50.5%;background:#000;transform:scaleY(0)}
+.shut i:first-child{top:0;transform-origin:top}.shut i:last-child{bottom:0;transform-origin:bottom}
+.vw.cut .shut i{animation:shut .62s cubic-bezier(.7,0,.3,1)}
+@keyframes shut{0%{transform:scaleY(0)}42%,58%{transform:scaleY(1)}100%{transform:scaleY(0)}}
+.vw.cut .vbg{animation:flash .62s}
+@keyframes flash{50%{filter:blur(70px) saturate(2) brightness(1.1)}}
+
+.vw .note{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.8);padding:6px 12px;border-radius:6px;font-size:11px;z-index:7;white-space:nowrap}
+
+/* phones & tablets: poster on top, screen below */
+@media(max-width:900px){
+ .vtop{height:56px;padding:0 14px}.vin{top:56px;bottom:92px;justify-content:flex-start;overflow-y:auto;gap:18px;padding:18px 16px 24px}
+ .shut{inset:56px 0 92px}
+ .vbot{height:92px;padding:0 10px;gap:8px}.vbot>button{width:38px;height:38px}
+ .vth button{width:42px;height:52px}
+ .vlive{font-size:9px;letter-spacing:.2em}.vscene{font-size:10px}.vscene b{font-size:18px}
+ .vstage{flex-direction:column;align-items:center;gap:22px;width:100%}
+ .vmed{-webkit-box-reflect:none}
+ .vvid{width:100%;height:auto}
+ .vmarq{top:30%}
+}

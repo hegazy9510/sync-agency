@@ -29,6 +29,7 @@
 <meta property="og:description" content="Film & series posters, music videos, social media and AI design.">
 <meta property="og:image" content="https://sync-agency.vercel.app/logo-sm.webp">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/viewer.css">
 </head>
 <body class="loading">
 <div id="pre"><div class="cv a"></div><div class="cv b"></div><div class="lg"><div class="logo"></div><div class="bar"><i id="pbar"></i></div></div><b id="pnum">0</b></div>
@@ -92,10 +93,17 @@
 
 <footer><div class="wrap"><span class="logo"></span><span data-t="foot"></span><a href="#home" data-t="top"></a></div></footer>
 
-<div class="vw" id="vw"><div class="bk"></div><div class="vbg" id="vbg"></div><div class="vig"></div>
- <div class="vin"><div class="vstage" id="vstage"><div class="vmed" id="vmed"></div><div class="vvid" id="vvid"></div></div>
-  <div class="vinfo" id="vinfo"><span class="vnum" id="vnum"></span><span class="vc" id="vc"></span><h3 id="vt"></h3><p id="vd"></p><div class="vbar"><i id="vbar"></i></div><div class="vctl"><button id="vp" aria-label="Previous">←</button><button id="vn" aria-label="Next">→</button></div></div></div>
- <div class="vth" id="vth"></div><button class="vx" id="vx" aria-label="Close">✕</button></div>
+<div class="vw" id="vw" role="dialog" aria-modal="true">
+ <div class="bk"></div><div class="vbg" id="vbg"></div><div class="vbeam"></div><div class="vig"></div>
+ <div class="vmarq" aria-hidden="true"><div id="vmq"></div></div>
+ <div class="vbar vtop"><span class="vlive"><i></i>NOW SHOWING</span><span class="vscene" id="vnum"></span><button class="vx" id="vx" aria-label="Close">✕</button></div>
+ <div class="vin">
+  <div class="vstage" id="vstage"><div class="vpost"><div class="vmed" id="vmed"></div></div><div class="vvid" id="vvid"></div></div>
+  <div class="vinfo" id="vinfo"><span class="vc" id="vc"></span><h3 id="vt"></h3><p id="vd"></p></div>
+ </div>
+ <div class="shut"><i></i><i></i></div>
+ <div class="vbar vbot"><button id="vp" aria-label="Previous">←</button><div class="vth" id="vth"></div><button id="vn" aria-label="Next">→</button></div>
+</div>
 
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
 <script src="js/content.js" defer></script>
