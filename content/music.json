@@ -1,12 +1,21 @@
 {
   "items": [
     {
-      "title": "الشمخ الجواني",
-      "image": "/uploads/3000-3000-11.webp",
-      "video_url": "https://www.youtube.com/watch?v=vRPJ8StQSEU&list=RDvRPJ8StQSEU&start_radio=1",
+      "title": "لفينا الدنيا",
+      "image": "/uploads/3000-3000-social.webp",
+      "video_url": "https://www.youtube.com/watch?v=HiCc_Jsu8EI&list=RDHiCc_Jsu8EI&start_radio=1",
+      "video_file": "",
+      "date": "2023",
+      "featured": false,
+      "hidden": false
+    },
+    {
+      "title": "الساحل الشمالي",
+      "image": "/uploads/1-3000-3000.webp",
+      "video_url": "https://www.youtube.com/watch?v=-F63-4xExYE&list=RD-F63-4xExYE&start_radio=1",
       "video_file": "",
       "date": "",
-      "featured": false,
+      "featured": true,
       "hidden": false
     },
     {
@@ -28,12 +37,12 @@
       "hidden": false
     },
     {
-      "title": "الساحل الشمالي",
-      "image": "/uploads/1-3000-3000.webp",
-      "video_url": "https://www.youtube.com/watch?v=-F63-4xExYE&list=RD-F63-4xExYE&start_radio=1",
+      "title": "الشمخ الجواني",
+      "image": "/uploads/3000-3000-11.webp",
+      "video_url": "https://www.youtube.com/watch?v=vRPJ8StQSEU&list=RDvRPJ8StQSEU&start_radio=1",
       "video_file": "",
       "date": "",
-      "featured": true,
+      "featured": false,
       "hidden": false
     },
     {
