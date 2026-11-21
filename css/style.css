@@ -3,7 +3,7 @@
 [dir=rtl]{--h:Cairo,sans-serif;--b:Cairo,sans-serif}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--fg);font:400 16px/1.7 var(--b);overflow-x:clip;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.7 var(--b);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 img,video{display:block;max-width:100%}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
@@ -350,23 +350,3 @@ body:after{content:"";position:fixed;inset:-50%;pointer-events:none;z-index:300;
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01s!important;animation-iteration-count:1!important;transition-duration:.01s!important}}
 /* hide text containers until content is rendered (prevents layout shift under the preloader) */
 .loading nav .wrap,.loading .hero .in,.loading .drag{visibility:hidden}
-
-/* ================= 3D POSTER TUNNEL (hero) ================= */
-.hero.tun{display:block;height:280vh;min-height:0;padding:0;overflow:visible;cursor:auto}
-.hero.tun:before{display:none}
-.tsticky{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 50%,#16101a,var(--bg) 70%)}
-.tscene{position:absolute;inset:0;perspective:760px;perspective-origin:50% 50%}
-.tworld{position:absolute;left:50%;top:50%;transform-style:preserve-3d;will-change:transform}
-.tt{position:absolute;left:0;top:0;width:var(--tw);aspect-ratio:4/5;margin:calc(var(--tw)*-.625) 0 0 calc(var(--tw)*-.5);border-radius:8px;overflow:hidden;background:#000;cursor:pointer;will-change:transform,opacity;box-shadow:0 30px 70px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.06);backface-visibility:hidden}
-.tt>*{position:absolute!important;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
-.tt .p *{animation:none!important}.tt .p .blob{filter:blur(20px)}
-.tt:hover{box-shadow:0 0 0 2px var(--ac),0 30px 80px rgba(var(--acr,255,45,85),.4)}
-.tsticky .wshade{background:radial-gradient(ellipse 34% 42% at 50% 50%,rgba(10,10,12,.92) 30%,rgba(10,10,12,.55) 62%,transparent 85%),linear-gradient(180deg,rgba(10,10,12,.5),transparent 18%,transparent 80%,var(--bg))}
-.tflash{position:absolute;inset:0;pointer-events:none;opacity:0;z-index:2;background:radial-gradient(circle at 50% 50%,#fff 0,rgba(255,240,235,.85) 12%,rgba(255,45,85,.35) 34%,transparent 62%);mix-blend-mode:screen}
-.tsticky .in{position:relative;z-index:3;pointer-events:none;will-change:opacity,transform}
-.tsticky .in a{pointer-events:auto}
-.tsticky .drag{z-index:4}
-.drag span{border-radius:14px;width:24px;height:38px;animation:none}
-.drag span:after{inset:auto;left:50%;top:7px;width:3px;height:8px;margin-left:-1.5px;border-radius:2px;animation:scd 1.8s infinite}
-@media(max-width:760px){.hero.tun{height:220vh}.tscene{perspective:700px}}
-@media(prefers-reduced-motion:reduce){.hero.tun{height:100vh}}

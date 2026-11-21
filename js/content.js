@@ -13,7 +13,7 @@ const TXT={
    "حاصل على دبلومة Adobe سنة 2020، و<strong>أول من اشتغل بالذكاء الاصطناعي في الوطن العربي</strong> وحوّله لأداة إبداع حقيقية."],
   sEy:"إيه اللي بنعمله",sH:"الخدمات",cEy:"اشتغلنا مع",cH:"العملاء",
   ctEy:"عندك مشروع؟",ctH:"يلا <span>نبدأ.</span>",ctP:"احكيلنا فكرتك ونرجعلك في أسرع وقت.",ctB:"ابعت إيميل",
-  foot:"© 2026 SYNC AGENCY — محمد حجازي",top:"للأعلى ↑",drag:"اسكرول وادخل جوه الشغل",all:"الكل",demo:"عرض تجريبي — حط لينك الفيديو في الكود"},
+  foot:"© 2026 SYNC AGENCY — محمد حجازي",top:"للأعلى ↑",drag:"اسحب واستكشف الأعمال",all:"الكل",demo:"عرض تجريبي — حط لينك الفيديو في الكود"},
  en:{nWork:"Work",nAbout:"About",nSvc:"Services",nCl:"Clients",nCt:"Let's talk",
   h1:"We design what <span>the world remembers</span>",
   hSub:"Film & series posters, music videos, social media and AI visuals — for the biggest names in the Arab world.",
@@ -25,7 +25,7 @@ const TXT={
    "Adobe-certified (2020), and <strong>the first creative in the Arab world to work with Artificial Intelligence</strong> — turning it into a real creative tool."],
   sEy:"What we do",sH:"Services",cEy:"Trusted by",cH:"Clients",
   ctEy:"Have a project?",ctH:"Let's <span>Sync.</span>",ctP:"Tell us your idea — we'll get back to you fast.",ctB:"Send an email",
-  foot:"© 2026 SYNC AGENCY — Mohamed Hegazy",top:"Back to top ↑",drag:"Scroll into the work",all:"All",demo:"Demo — add your video link in the code"}
+  foot:"© 2026 SYNC AGENCY — Mohamed Hegazy",top:"Back to top ↑",drag:"Drag to explore",all:"All",demo:"Demo — add your video link in the code"}
 };
 const CATS={film:["أفلام","Films"],series:["مسلسلات","Series"],music:["أغاني","Music"],video:["كليبات","Videos"],social:["سوشيال","Social"],ai:["ذكاء اصطناعي","AI"]};
 let STATS=[["14","+","سنة خبرة","Years"],["500","+","مشروع","Projects"],["120","+","شركة وبراند","Brands"],["1","st","أول واحد بالـ AI","AI pioneer"]];
