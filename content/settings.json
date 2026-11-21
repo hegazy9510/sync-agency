@@ -1,0 +1,32 @@
+{
+  "email": "hello@syncagency.com",
+  "portrait": "",
+  "text_ar": {
+    "hero": "بوسترات أفلام ومسلسلات، كليبات وأغاني، سوشيال ميديا وذكاء اصطناعي — لأكبر الأسماء في الوطن العربي.",
+    "hook": "قبل ما الإعلان ينزل، وقبل ما الأغنية تكسّر… فيه <span>صورة واحدة</span> الناس بتشوفها الأول. وأنا اللي بصنعها.",
+    "about": "آرت دايركتور ومؤسس <strong>SYNC AGENCY</strong>، شغال في التصميم والميديا والماركتنج من <strong>2012</strong>. صنعت هوية أكبر الأفلام والمسلسلات وأقوى الأغاني في الوطن العربي مع كبرى الشركات.\n\nحاصل على دبلومة Adobe سنة 2020، و<strong>أول من اشتغل بالذكاء الاصطناعي في الوطن العربي</strong> وحوّله لأداة إبداع حقيقية."
+  },
+  "text_en": {
+    "hero": "Film & series posters, music videos, social media and AI visuals — for the biggest names in the Arab world.",
+    "hook": "Before the trailer drops, before the song hits #1 — there's <span>one image</span> everyone sees first. I make that image.",
+    "about": "Art Director and founder of <strong>SYNC AGENCY</strong>, working in design, media and marketing since <strong>2012</strong>. I've built the visual identity of the Arab world's biggest films, series and chart-topping songs with its leading studios and labels.\n\nAdobe-certified (2020), and <strong>the first creative in the Arab world to work with Artificial Intelligence</strong> — turning it into a real creative tool."
+  },
+  "stats": [
+    { "number": 14, "suffix": "+", "label_ar": "سنة خبرة", "label_en": "Years" },
+    { "number": 500, "suffix": "+", "label_ar": "مشروع", "label_en": "Projects" },
+    { "number": 120, "suffix": "+", "label_ar": "شركة وبراند", "label_en": "Brands" },
+    { "number": 1, "suffix": "st", "label_ar": "أول واحد بالـ AI", "label_en": "AI pioneer" }
+  ],
+  "clients": [
+    { "name": "Client 01", "logo": "" }, { "name": "Client 02", "logo": "" },
+    { "name": "Client 03", "logo": "" }, { "name": "Client 04", "logo": "" },
+    { "name": "Client 05", "logo": "" }, { "name": "Client 06", "logo": "" },
+    { "name": "Client 07", "logo": "" }, { "name": "Client 08", "logo": "" }
+  ],
+  "links": [
+    { "name": "Instagram", "label": "@hegazy_official", "url": "https://www.instagram.com/hegazy_official/" },
+    { "name": "Instagram", "label": "@syncagency.eg", "url": "https://www.instagram.com/syncagency.eg/" },
+    { "name": "Behance", "label": "Portfolio", "url": "#" },
+    { "name": "WhatsApp", "label": "Chat", "url": "#" }
+  ]
+}

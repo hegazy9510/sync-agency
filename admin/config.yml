@@ -1,0 +1,193 @@
+# SYNC AGENCY — Control panel (Sveltia CMS, free)
+backend:
+  name: github
+  repo: hegazy9510/sync-agency
+  branch: main
+
+# كل الصور اللي بترفعها بتتحفظ هنا، وبتتحول تلقائياً لـ WebP خفيفة
+media_folder: uploads
+public_folder: uploads
+media_libraries:
+  default:
+    config:
+      max_file_size: 30000000
+      slugify_filename: true
+      transformations:
+        raster_image:
+          format: webp
+          quality: 85
+          width: 2400
+          height: 2400
+
+site_url: https://hegazy9510.github.io/sync-agency/
+logo_url: ../logo.webp
+
+collections:
+  - name: portfolio
+    label: "🎬 الأعمال"
+    description: "أضف أو احذف أو رتّب البوسترات والكليبات لكل قسم"
+    editor: { preview: false }
+    files:
+      - name: film
+        label: "أفلام"
+        file: content/film.json
+        fields:
+          - name: items
+            label: "الأعمال"
+            label_singular: "عمل"
+            widget: list
+            add_to_top: true
+            collapsed: true
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "اسم العمل", widget: string }
+              - { name: image, label: "البوستر / الصورة", widget: image, required: false, hint: "ارفع الصورة هنا — بتتضغط تلقائياً" }
+              - { name: video_url, label: "لينك فيديو (YouTube أو mp4)", widget: string, required: false, hint: "للكليبات: حط لينك يوتيوب — أفضل من رفع ملف" }
+              - { name: video_file, label: "أو ارفع ملف فيديو mp4 (أقل من 30MB)", widget: file, required: false }
+              - { name: date, label: "سطر صغير (السنة / الموسم)", widget: string, required: false }
+              - { name: featured, label: "مميز — يظهر في الأول", widget: boolean, default: false, required: false }
+              - { name: hidden, label: "إخفاء من الموقع", widget: boolean, default: false, required: false }
+      - name: series
+        label: "مسلسلات"
+        file: content/series.json
+        fields:
+          - name: items
+            label: "الأعمال"
+            label_singular: "عمل"
+            widget: list
+            add_to_top: true
+            collapsed: true
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "اسم العمل", widget: string }
+              - { name: image, label: "البوستر / الصورة", widget: image, required: false, hint: "ارفع الصورة هنا — بتتضغط تلقائياً" }
+              - { name: video_url, label: "لينك فيديو (YouTube أو mp4)", widget: string, required: false, hint: "للكليبات: حط لينك يوتيوب — أفضل من رفع ملف" }
+              - { name: video_file, label: "أو ارفع ملف فيديو mp4 (أقل من 30MB)", widget: file, required: false }
+              - { name: date, label: "سطر صغير (السنة / الموسم)", widget: string, required: false }
+              - { name: featured, label: "مميز — يظهر في الأول", widget: boolean, default: false, required: false }
+              - { name: hidden, label: "إخفاء من الموقع", widget: boolean, default: false, required: false }
+      - name: music
+        label: "أغاني"
+        file: content/music.json
+        fields:
+          - name: items
+            label: "الأعمال"
+            label_singular: "عمل"
+            widget: list
+            add_to_top: true
+            collapsed: true
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "اسم العمل", widget: string }
+              - { name: image, label: "البوستر / الصورة", widget: image, required: false, hint: "ارفع الصورة هنا — بتتضغط تلقائياً" }
+              - { name: video_url, label: "لينك فيديو (YouTube أو mp4)", widget: string, required: false, hint: "للكليبات: حط لينك يوتيوب — أفضل من رفع ملف" }
+              - { name: video_file, label: "أو ارفع ملف فيديو mp4 (أقل من 30MB)", widget: file, required: false }
+              - { name: date, label: "سطر صغير (السنة / الموسم)", widget: string, required: false }
+              - { name: featured, label: "مميز — يظهر في الأول", widget: boolean, default: false, required: false }
+              - { name: hidden, label: "إخفاء من الموقع", widget: boolean, default: false, required: false }
+      - name: video
+        label: "كليبات وفيديو"
+        file: content/video.json
+        fields:
+          - name: items
+            label: "الأعمال"
+            label_singular: "عمل"
+            widget: list
+            add_to_top: true
+            collapsed: true
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "اسم العمل", widget: string }
+              - { name: image, label: "البوستر / الصورة", widget: image, required: false, hint: "ارفع الصورة هنا — بتتضغط تلقائياً" }
+              - { name: video_url, label: "لينك فيديو (YouTube أو mp4)", widget: string, required: false, hint: "للكليبات: حط لينك يوتيوب — أفضل من رفع ملف" }
+              - { name: video_file, label: "أو ارفع ملف فيديو mp4 (أقل من 30MB)", widget: file, required: false }
+              - { name: date, label: "سطر صغير (السنة / الموسم)", widget: string, required: false }
+              - { name: featured, label: "مميز — يظهر في الأول", widget: boolean, default: false, required: false }
+              - { name: hidden, label: "إخفاء من الموقع", widget: boolean, default: false, required: false }
+      - name: social
+        label: "سوشيال ميديا"
+        file: content/social.json
+        fields:
+          - name: items
+            label: "الأعمال"
+            label_singular: "عمل"
+            widget: list
+            add_to_top: true
+            collapsed: true
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "اسم العمل", widget: string }
+              - { name: image, label: "البوستر / الصورة", widget: image, required: false, hint: "ارفع الصورة هنا — بتتضغط تلقائياً" }
+              - { name: video_url, label: "لينك فيديو (YouTube أو mp4)", widget: string, required: false, hint: "للكليبات: حط لينك يوتيوب — أفضل من رفع ملف" }
+              - { name: video_file, label: "أو ارفع ملف فيديو mp4 (أقل من 30MB)", widget: file, required: false }
+              - { name: date, label: "سطر صغير (السنة / الموسم)", widget: string, required: false }
+              - { name: featured, label: "مميز — يظهر في الأول", widget: boolean, default: false, required: false }
+              - { name: hidden, label: "إخفاء من الموقع", widget: boolean, default: false, required: false }
+      - name: ai
+        label: "ذكاء اصطناعي"
+        file: content/ai.json
+        fields:
+          - name: items
+            label: "الأعمال"
+            label_singular: "عمل"
+            widget: list
+            add_to_top: true
+            collapsed: true
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: "اسم العمل", widget: string }
+              - { name: image, label: "البوستر / الصورة", widget: image, required: false, hint: "ارفع الصورة هنا — بتتضغط تلقائياً" }
+              - { name: video_url, label: "لينك فيديو (YouTube أو mp4)", widget: string, required: false, hint: "للكليبات: حط لينك يوتيوب — أفضل من رفع ملف" }
+              - { name: video_file, label: "أو ارفع ملف فيديو mp4 (أقل من 30MB)", widget: file, required: false }
+              - { name: date, label: "سطر صغير (السنة / الموسم)", widget: string, required: false }
+              - { name: featured, label: "مميز — يظهر في الأول", widget: boolean, default: false, required: false }
+              - { name: hidden, label: "إخفاء من الموقع", widget: boolean, default: false, required: false }
+
+  - name: site
+    label: "⚙️ إعدادات الموقع"
+    editor: { preview: false }
+    files:
+      - name: settings
+        label: "الكلام والتواصل والعملاء"
+        file: content/settings.json
+        fields:
+          - { name: email, label: "الإيميل", widget: string }
+          - { name: portrait, label: "صورتك الشخصية", widget: image, required: false }
+          - name: text_ar
+            label: "الكلام بالعربي"
+            widget: object
+            fields:
+              - { name: hero, label: "وصف الصفحة الرئيسية", widget: text }
+              - { name: hook, label: "الجملة الكبيرة في (عنّي)", widget: text }
+              - { name: about, label: "التعريف (افصل الفقرات بسطر فاضي)", widget: text }
+          - name: text_en
+            label: "English text"
+            widget: object
+            fields:
+              - { name: hero, label: "Hero description", widget: text }
+              - { name: hook, label: "About headline", widget: text }
+              - { name: about, label: "About (blank line between paragraphs)", widget: text }
+          - name: stats
+            label: "الأرقام"
+            widget: list
+            summary: "{{fields.number}}{{fields.suffix}} — {{fields.label_ar}}"
+            fields:
+              - { name: number, label: "الرقم", widget: number }
+              - { name: suffix, label: "بعد الرقم (+ أو st)", widget: string, required: false }
+              - { name: label_ar, label: "الوصف بالعربي", widget: string }
+              - { name: label_en, label: "English label", widget: string }
+          - name: clients
+            label: "العملاء"
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: "اسم الشركة", widget: string }
+              - { name: logo, label: "لوجو الشركة", widget: image, required: false }
+          - name: links
+            label: "لينكات التواصل"
+            widget: list
+            summary: "{{fields.name}} — {{fields.label}}"
+            fields:
+              - { name: name, label: "المنصة", widget: string }
+              - { name: label, label: "النص الظاهر", widget: string }
+              - { name: url, label: "اللينك", widget: string }
