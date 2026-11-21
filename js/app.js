@@ -252,54 +252,61 @@ function bindHovers(){
     b.addEventListener("mouseleave", () => b.style.transform = "") });
 }
 
-/* infinite draggable poster wall (hero) — pauses when off screen */
-function initWall(){
-  const wall = $("#wall"), hero = $(".hero"), glow = $("#glowm");
-  let tiles = [], cols, rows, cw, ch, running = false, visible = true;
-  let ox = 0, oy = 0, vx = -.35, vy = -.2, down = false, lx = 0, ly = 0, sx = 0, sy = 0, pmx = .5, pmy = .5;
+/* 3D poster tunnel (hero) — scroll flies the camera through your work */
+function initTunnel(){
+  const hero = $(".hero"), world = $("#tworld"), flash = $("#tflash"), heroIn = $(".hero .in"), hint = $("#drag");
+  let tiles = [], span = 1, running = false, visible = true, idle = 0, mx = 0, my = 0, rx = 0, ry = 0, last = -1;
   const mod = (a, n) => ((a % n) + n) % n;
 
   function build(){
-    const tw = innerWidth < 600 ? 120 : innerWidth < 1100 ? 170 : 210, gap = innerWidth < 600 ? 10 : 18;
-    cw = tw + gap; ch = tw*1.25 + gap;
-    cols = Math.ceil(innerWidth/cw) + 1; rows = Math.ceil(innerHeight/ch) + 2;
-    wall.style.setProperty("--tw", tw + "px");
+    const mob = innerWidth < 760, tw = mob ? 112 : innerWidth < 1100 ? 170 : 230, D = mob ? 220 : 230;
+    const N = Math.min(mob ? 24 : 42, Math.max(16, WORKS.length * 3));
+    const W = innerWidth / 2, H = innerHeight / 2;
+    const rMin = mob ? W * .62 : Math.max(W * .42, H * .9), rMax = mob ? W * 1.25 : W * 1.05;
+    span = N * D;
     let h = "";
-    for (let c = 0; c < cols; c++) for (let r = 0; r < rows; r++){ const k = (c*rows + r*3 + c) % WORKS.length;
-      h += `<div class="tl" data-c="${c}" data-r="${r}" data-i="${k}">${media(WORKS[k], k)}</div>` }
-    wall.innerHTML = h; tiles = $$("#wall .tl").map(el => ({ el, c: +el.dataset.c, r: +el.dataset.r }));
-    draw();
+    for (let k = 0; k < N; k++){
+      const i = k % WORKS.length, a = k * 2.39996, r = rMin + (rMax - rMin) * ((k * .618) % 1);
+      const x = Math.round(Math.cos(a) * r), y = Math.round(Math.sin(a) * r * (mob ? 1.5 : .78)), rot = (k * 37) % 18 - 9;
+      h += `<div class="tt" data-i="${i}" data-x="${x}" data-y="${y}" data-z="${-k * D}" data-r="${rot}">${media(WORKS[i], i)}</div>`;
+    }
+    world.style.setProperty("--tw", tw + "px"); world.innerHTML = h;
+    tiles = $$("#tworld .tt").map(el => ({ el, x: +el.dataset.x, y: +el.dataset.y, z: +el.dataset.z, r: +el.dataset.r }));
+    last = -1;
   }
-  function draw(){
-    const W = cols*cw, H = rows*ch, px = (pmx-.5)*-40, py = (pmy-.5)*-40;
-    for (const tl of tiles){ const stag = tl.c % 2 ? ch/2 : 0;
-      tl.el.style.transform = `translate3d(${mod(tl.c*cw + ox + px, W) - cw}px,${mod(tl.r*ch + oy + stag + py, H) - ch}px,0)` }
+  function frame(){
+    if (!visible){ running = false; return }
+    const top = hero.getBoundingClientRect().top, room = hero.offsetHeight - innerHeight;
+    const p = Math.min(1, Math.max(0, -top / Math.max(1, room)));
+    if (!REDUCE) idle += 1.3;
+    const cam = idle + p * span * 1.15;
+    rx += (mx - rx) * .06; ry += (my - ry) * .06;
+    world.style.transform = `rotateX(${-ry * 7}deg) rotateY(${rx * 9}deg)`;
+    for (const t of tiles){
+      const z = mod(t.z + cam, span) - span + 620;                 // −span+620 … 620
+      const far = Math.min(1, (z + span - 620) / (span * .22));    // fade in from the fog
+      const near = z > 380 ? Math.max(0, (620 - z) / 240) : 1;      // fade out before hitting the lens
+      t.el.style.transform = `translate3d(${t.x}px,${t.y}px,${z}px) rotate(${t.r}deg)`;
+      t.el.style.opacity = (far * near).toFixed(3);
+    }
+    if (p !== last){ last = p;
+      heroIn.style.opacity = Math.max(0, 1 - p * 3.2);
+      heroIn.style.transform = `scale(${1 - p * .35})`;
+      hint.style.opacity = Math.max(0, 1 - p * 6);
+      flash.style.opacity = p > .76 ? Math.min(1, (p - .76) / .16) : 0;
+    }
+    requestAnimationFrame(frame);
   }
-  function loop(){
-    if (!visible || REDUCE && !down){ running = false; return }
-    if (!down){ ox += vx; oy += vy; vx += (-.35 - vx)*.02; vy += (-.2 - vy)*.02 }
-    draw(); requestAnimationFrame(loop);
+  const start = () => { if (!running){ running = true; requestAnimationFrame(frame) } };
+
+  addEventListener("mousemove", e => { mx = e.clientX / innerWidth - .5; my = e.clientY / innerHeight - .5 }, { passive: true });
+  world.addEventListener("click", e => { const tl = e.target.closest(".tt"); if (!tl) return;
+    F = "all"; LIM = Math.max(LIM, WORKS.length); $$("#tabs button").forEach(x => x.classList.toggle("on", x.dataset.f === "all")); applyFilter();
+    Viewer.open(+tl.dataset.i, tl) });
+  if (FINE){
+    world.addEventListener("mouseover", e => { const tl = e.target.closest(".tt"); if (tl) Cursor.set("lb2", WORKS[tl.dataset.i].cat === "video" ? (L === "ar" ? "شغّل" : "PLAY") : (L === "ar" ? "شوف" : "VIEW")) });
+    world.addEventListener("mouseout", e => { if (e.target.closest(".tt")) Cursor.clear() });
   }
-  const start = () => { if (!running){ running = true; requestAnimationFrame(loop) } };
-  const P = e => e.touches ? e.touches[0] : e;
-
-  hero.addEventListener("mousedown", e => { if (e.target.closest("a,button")) return; down = true; const p = P(e); lx = sx = p.clientX; ly = sy = p.clientY; vx = vy = 0; hero.classList.add("dragging"); start() });
-  hero.addEventListener("touchstart", e => { if (e.target.closest("a,button")) return; down = true; const p = P(e); lx = sx = p.clientX; ly = sy = p.clientY; vx = vy = 0; start() }, { passive: true });
-  const move = e => { const p = P(e);
-    if (!e.touches && visible){ pmx = p.clientX/innerWidth; pmy = p.clientY/innerHeight; if (glow){ glow.style.left = p.clientX + "px"; glow.style.top = p.clientY + "px" } }
-    if (!down) return; const dx = p.clientX - lx, dy = e.touches ? 0 : p.clientY - ly; lx = p.clientX; ly = p.clientY;
-    ox += dx; oy += dy; vx = dx; vy = dy };
-  addEventListener("mousemove", move, { passive: true }); hero.addEventListener("touchmove", move, { passive: true });
-  const up = e => { if (!down) return; down = false; hero.classList.remove("dragging"); start();
-    const p = e.changedTouches ? e.changedTouches[0] : e;
-    if (Math.hypot(p.clientX - sx, p.clientY - sy) < 8){ const tl = document.elementFromPoint(p.clientX, p.clientY)?.closest(".tl");
-      if (tl){ F = "all"; LIM = Math.max(LIM, WORKS.length); $$("#tabs button").forEach(x => x.classList.toggle("on", x.dataset.f === "all")); applyFilter(); Viewer.open(+tl.dataset.i, tl) } } };
-  addEventListener("mouseup", up); hero.addEventListener("touchend", up);
-
-  if (FINE){ const drag = () => Cursor.set("drg", L === "ar" ? "اسحب" : "DRAG");
-    hero.addEventListener("mouseenter", drag); hero.addEventListener("mouseleave", () => Cursor.clear());
-    $$(".hero .in a").forEach(a => { a.addEventListener("mouseleave", drag) }) }
-
   let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(build, 250) });
   onScreen(hero, v => { visible = v; if (v) start() });
   document.addEventListener("visibilitychange", () => { if (!document.hidden) start() });
@@ -318,15 +325,14 @@ function initMarquee(){
   onScreen(tr, v => { on = v; third = tr.scrollWidth/3; if (v && !running){ running = true; requestAnimationFrame(loop) } });
 }
 
-/* scroll-driven: nav, progress bar, hero fade, touch card tilt (one rAF per scroll) */
+/* scroll-driven: nav, progress bar, touch card tilt (one rAF per scroll) */
 function initScroll(){
-  const nav = $("#nav"), pg = $("#prog"), heroIn = $(".hero .in");
+  const nav = $("#nav"), pg = $("#prog");
   let ticking = false;
   const update = () => { ticking = false;
     const y = scrollY, vh = innerHeight;
     nav.classList.toggle("s", y > 30);
     pg.style.transform = `scaleX(${y / Math.max(1, document.documentElement.scrollHeight - vh)})`;
-    if (y < vh){ heroIn.style.transform = `translateY(${y*.3}px)`; heroIn.style.opacity = 1 - y/(vh*.9) }
     if (!FINE && !REDUCE) $$("#grid .it.on:not(.hide) .fr").forEach(fr => { const r = fr.getBoundingClientRect(); if (r.bottom < 0 || r.top > vh) return;
       const k = (r.top + r.height/2 - vh/2)/vh; fr.style.transform = `perspective(800px) rotateX(${k*-12}deg) scale(${1 - Math.abs(k)*.06})` });
   };
@@ -357,7 +363,7 @@ async function boot(){
 
   await loadContent();
   if (PORTRAIT){ $("#port .sil")?.remove(); $("#port").insertAdjacentHTML("afterbegin", `<img src="${PORTRAIT}" alt="Mohamed Hegazy" loading="lazy">`) }
-  render(); initPortfolio(); initMenu(); initSmooth(); initScroll(); initMarquee(); initWall();
+  render(); initPortfolio(); initMenu(); initSmooth(); initScroll(); initMarquee(); initTunnel();
   $("#lang").onclick = () => { L = L === "ar" ? "en" : "ar"; store.set("lang", L); render() };
   $$(".rv").forEach(e => reveal.observe(e)); reveal.observe($("#port"));
 
