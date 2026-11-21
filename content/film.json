@@ -1,6 +1,15 @@
 {
   "items": [
     {
+      "title": "حب الحب - شمشون ودليلة",
+      "image": "/uploads/3000-3000.webp",
+      "video_url": "https://www.youtube.com/watch?v=ucPlDBSWHQI",
+      "video_file": "",
+      "date": "",
+      "featured": true,
+      "hidden": false
+    },
+    {
       "title": "باشا - من فيلم جوازة ولا جنازة",
       "image": "/uploads/3000-3000-f.webp",
       "video_url": "https://www.youtube.com/watch?v=ZJmEdgjvhrA&list=RDZJmEdgjvhrA&start_radio=1",
