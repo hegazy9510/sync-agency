@@ -1,6 +1,13 @@
 {
   "items": [
-    { "title": "MIDNIGHT", "image": "" },
-    { "title": "حبيبي", "image": "" }
+    {
+      "title": "الساحل الشمالي",
+      "image": "/uploads/1-3000-3000.webp",
+      "video_url": "https://www.youtube.com/watch?v=-F63-4xExYE&list=RD-F63-4xExYE&start_radio=1",
+      "video_file": "",
+      "date": "",
+      "featured": true,
+      "hidden": false
+    }
   ]
 }
