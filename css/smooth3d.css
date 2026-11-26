@@ -1,0 +1,83 @@
+/* =====================================================================
+   SYNC AGENCY — "Smooth 3D" style layer
+   soft depth · glossy surfaces · floating objects · slow easing
+   Remove this file's <link> in index.html to go back to the flat look.
+   ===================================================================== */
+:root{--r3:22px;--soft:cubic-bezier(.22,1,.36,1);
+ --surf:linear-gradient(150deg,#1c1c23 0%,#121217 55%,#0d0d11 100%);
+ --edge:inset 0 1px 0 rgba(255,255,255,.09),inset 0 -1px 0 rgba(0,0,0,.6);
+ --lift:0 2px 4px rgba(0,0,0,.25),0 14px 28px rgba(0,0,0,.35),0 40px 80px rgba(0,0,0,.35)}
+
+/* ---- floating glossy spheres in the background ---- */
+.orbs{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.orbs i{position:absolute;border-radius:50%;filter:blur(.5px);opacity:.55;animation:float3 18s var(--soft) infinite alternate;
+ background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.75) 0 4%,rgba(255,255,255,.18) 14%,transparent 34%),radial-gradient(circle at 50% 55%,var(--o1),var(--o2) 70%);
+ box-shadow:inset -18px -26px 50px rgba(0,0,0,.55),0 40px 90px rgba(0,0,0,.45)}
+.orbs i:nth-child(1){--o1:#ff5a7a;--o2:#5a0018;width:220px;height:220px;left:-60px;top:18vh}
+.orbs i:nth-child(2){--o1:#8b6dff;--o2:#1c0b52;width:150px;height:150px;right:6vw;top:62vh;animation-duration:22s;animation-delay:-6s}
+.orbs i:nth-child(3){--o1:#4fe3ff;--o2:#003647;width:90px;height:90px;left:44vw;top:88vh;animation-duration:16s;animation-delay:-3s}
+@keyframes float3{0%{transform:translate3d(0,0,0) rotate(0)}50%{transform:translate3d(30px,-40px,0) rotate(20deg)}100%{transform:translate3d(-20px,30px,0) rotate(-10deg)}}
+main,section,.stats,.mq,footer{position:relative;z-index:1}
+section.alt{background:linear-gradient(180deg,rgba(18,18,22,.92),rgba(12,12,15,.92))}
+
+/* ---- hero: the poster wall lies in 3D space ---- */
+.hero .wall{transform:perspective(1500px) rotateX(26deg) rotateZ(-9deg) scale(1.38);transform-origin:50% 55%}
+.wall .tl{border-radius:16px;box-shadow:0 18px 40px rgba(0,0,0,.55);contain:layout paint}
+.wall .tl>*{transition:transform .7s var(--soft)}
+.wall .tl:hover>*{transform:translateY(-10px) scale(1.04)}
+.wshade{background:radial-gradient(ellipse 44% 50% at 50% 50%,rgba(10,10,12,.95) 34%,rgba(10,10,12,.7) 62%,rgba(10,10,12,.2)),linear-gradient(180deg,rgba(10,10,12,.85),transparent 22%,transparent 72%,var(--bg))!important}
+.hero .logo{filter:drop-shadow(0 18px 30px rgba(0,0,0,.6)) drop-shadow(0 0 40px rgba(255,255,255,.12))}
+
+/* ---- buttons: soft, glossy, pressable ---- */
+.btn{border-radius:999px;background:linear-gradient(180deg,#ffffff 0%,#e9e6e1 100%);box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 -2px 0 rgba(0,0,0,.12) inset,0 10px 24px rgba(0,0,0,.35),0 2px 4px rgba(0,0,0,.3);transition:transform .45s var(--soft),box-shadow .45s var(--soft),background .3s}
+.btn:hover{background:linear-gradient(180deg,#ff5a7a,#e0143f);color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 -2px 0 rgba(0,0,0,.2) inset,0 16px 34px rgba(255,45,85,.45),0 2px 4px rgba(0,0,0,.3)}
+.btn:active{transform:translateY(2px) scale(.97)!important;box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 4px 10px rgba(0,0,0,.35)}
+.btn.o{background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.16);box-shadow:var(--edge),0 10px 24px rgba(0,0,0,.35);backdrop-filter:blur(10px)}
+.lang,.tabs button,.burger{background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));box-shadow:var(--edge),0 6px 16px rgba(0,0,0,.3);border-color:rgba(255,255,255,.1)}
+.tabs button.on{background:linear-gradient(180deg,#fff,#e6e3de);box-shadow:inset 0 -2px 0 rgba(0,0,0,.12),0 8px 18px rgba(0,0,0,.35)}
+
+/* ---- portfolio cards: rounded, deep, floating ---- */
+.fr{border-radius:var(--r3);box-shadow:var(--lift);transition:clip-path 1.3s var(--e),transform .8s var(--soft),box-shadow .8s var(--soft)!important}
+.it.on .fr{clip-path:inset(0 0 0 0 round var(--r3))}
+.it .fr{clip-path:inset(100% 0 0 0 round var(--r3))}
+.it:hover .fr{box-shadow:0 4px 8px rgba(0,0,0,.25),0 30px 60px rgba(0,0,0,.45),0 60px 120px rgba(0,0,0,.4)}
+.fr:before{content:"";position:absolute;inset:0;z-index:4;pointer-events:none;border-radius:inherit;
+ background:linear-gradient(160deg,rgba(255,255,255,.16),transparent 28%,transparent 70%,rgba(0,0,0,.25));box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}
+.it{animation:bob 7s ease-in-out infinite;animation-delay:calc(var(--d,0)*-2.3s)}
+@keyframes bob{50%{transform:translateY(-7px)}}
+.ov i{box-shadow:0 10px 30px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.9)}
+
+/* ---- surfaces: stats, services, clients, links, about ---- */
+.stats{border:0}
+.stats .wrap{gap:14px;padding-block:28px}
+.stats .wrap>div{background:var(--surf);border-radius:var(--r3);box-shadow:var(--edge),var(--lift);border:0!important;transition:transform .7s var(--soft)}
+.stats .wrap>div:hover{transform:translateY(-6px)}
+.svc{border-top:0;gap:18px}
+.svc div{background:var(--surf);border:0;border-radius:var(--r3);box-shadow:var(--edge),var(--lift);padding:34px 30px!important;transition:transform .7s var(--soft),color .4s!important}
+.svc div:hover{transform:translateY(-10px) rotateX(4deg)}
+.svc div:before{border-radius:inherit}
+.svc b{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:14px;background:linear-gradient(160deg,#ff5a7a,#c4123a);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 10px 20px rgba(255,45,85,.35)}
+.cl{background:transparent;border:0;gap:14px}
+.cl div{background:var(--surf);border-radius:18px;box-shadow:var(--edge),0 12px 30px rgba(0,0,0,.35);transition:transform .7s var(--soft)}
+.cl div:hover{transform:translateY(-6px)}
+.links a{background:var(--surf);border:0;border-radius:18px;box-shadow:var(--edge),0 12px 30px rgba(0,0,0,.35);transition:transform .6s var(--soft)}
+.links a:hover{transform:translateY(-6px)}
+.port{border-radius:28px;box-shadow:var(--edge),var(--lift)}
+.tags span{background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));box-shadow:var(--edge);border-color:transparent}
+nav.s{background:rgba(12,12,15,.65);backdrop-filter:blur(20px) saturate(1.4);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+
+/* ---- viewer: softer, rounder ---- */
+.vmed,.vvid{border-radius:20px}
+.vth button{border-radius:8px}
+
+/* ---- phones: keep it light ---- */
+@media(max-width:760px){
+ .orbs i:nth-child(1){width:140px;height:140px;left:-50px}
+ .orbs i:nth-child(2){width:90px;height:90px}
+ .orbs i:nth-child(3){display:none}
+ .hero .wall{transform:perspective(1100px) rotateX(22deg) rotateZ(-7deg) scale(1.45)}
+ .it{animation:none}
+ .stats .wrap{gap:10px;padding:18px 16px}
+ .svc div:hover{transform:none}
+}
+@media(prefers-reduced-motion:reduce){.orbs i,.it{animation:none}}
