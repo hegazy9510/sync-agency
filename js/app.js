@@ -361,6 +361,7 @@ async function boot(){
   $("#lang").onclick = () => { L = L === "ar" ? "en" : "ar"; store.set("lang", L); render() };
   $$(".rv").forEach(e => reveal.observe(e)); reveal.observe($("#port"));
 
+  document.dispatchEvent(new Event("sync:ready"));
   await minTime; clearInterval(tick); pnum.textContent = 100; pbar.style.width = "100%";
   setTimeout(() => { $("#pre").classList.add("out"); document.body.classList.remove("loading"); setTimeout(() => $("#pre").remove(), 1200) }, 120);
 }
